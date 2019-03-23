@@ -1,2 +1,2 @@
 # RecyclerView-Project
-This is a practical project for learning
+This is a practical android RecyclerView project for learning.
