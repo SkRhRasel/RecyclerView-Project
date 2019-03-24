@@ -5,59 +5,85 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    private ArrayList<ExampleItem> mExampleList;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    private Button buttonInsert;
+    private Button buttonRemove;
+    private EditText editTextInsert;
+    private EditText editTextRemove;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayList<ExampleItem> exampleList = new ArrayList<>();
-        exampleList.add(new ExampleItem(R.drawable.ic_android,"Line 1","Line 2"));
-        exampleList.add(new ExampleItem(R.drawable.ic_audiotrack,"Line 3","Line 4"));
-        exampleList.add(new ExampleItem(R.drawable.ic_wb_sunny,"Line 5","Line 6"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android,"Line 7","Line 8"));
-        exampleList.add(new ExampleItem(R.drawable.ic_audiotrack,"Line 9","Line 10"));
-        exampleList.add(new ExampleItem(R.drawable.ic_wb_sunny,"Line 11","Line 12"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android,"Line 1","Line 2"));
-        exampleList.add(new ExampleItem(R.drawable.ic_audiotrack,"Line 3","Line 4"));
-        exampleList.add(new ExampleItem(R.drawable.ic_wb_sunny,"Line 5","Line 6"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android,"Line 7","Line 8"));
-        exampleList.add(new ExampleItem(R.drawable.ic_audiotrack,"Line 9","Line 10"));
-        exampleList.add(new ExampleItem(R.drawable.ic_wb_sunny,"Line 11","Line 12"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android,"Line 1","Line 2"));
-        exampleList.add(new ExampleItem(R.drawable.ic_audiotrack,"Line 3","Line 4"));
-        exampleList.add(new ExampleItem(R.drawable.ic_wb_sunny,"Line 5","Line 6"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android,"Line 7","Line 8"));
-        exampleList.add(new ExampleItem(R.drawable.ic_audiotrack,"Line 9","Line 10"));
-        exampleList.add(new ExampleItem(R.drawable.ic_wb_sunny,"Line 11","Line 12"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android,"Line 1","Line 2"));
-        exampleList.add(new ExampleItem(R.drawable.ic_audiotrack,"Line 3","Line 4"));
-        exampleList.add(new ExampleItem(R.drawable.ic_wb_sunny,"Line 5","Line 6"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android,"Line 7","Line 8"));
-        exampleList.add(new ExampleItem(R.drawable.ic_audiotrack,"Line 9","Line 10"));
-        exampleList.add(new ExampleItem(R.drawable.ic_wb_sunny,"Line 11","Line 12"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android,"Line 1","Line 2"));
-        exampleList.add(new ExampleItem(R.drawable.ic_audiotrack,"Line 3","Line 4"));
-        exampleList.add(new ExampleItem(R.drawable.ic_wb_sunny,"Line 5","Line 6"));
-        exampleList.add(new ExampleItem(R.drawable.ic_android,"Line 7","Line 8"));
-        exampleList.add(new ExampleItem(R.drawable.ic_audiotrack,"Line 9","Line 10"));
-        exampleList.add(new ExampleItem(R.drawable.ic_wb_sunny,"Line 11","Line 12"));
+        createExampleList();
+        buildRecyclerView();
+
+        buttonInsert = findViewById(R.id.button_insert);
+        buttonRemove = findViewById(R.id.button_remove);
+        editTextInsert = findViewById(R.id.editText_insert);
+        editTextRemove = findViewById(R.id.editText_remove);
+
+        buttonInsert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = Integer.parseInt(editTextInsert.getText().toString());
+                insertItem(position);
+            }
+        });
+        buttonRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = Integer.parseInt(editTextRemove.getText().toString());
+                removeItem(position);
+            }
+        });
+
+
+    } //end of On Create
+
+    public void insertItem(int position){
+        mExampleList.add(position, new ExampleItem(R.drawable.ic_android,"New Item at Position: "+ position,"This is line 2"));
+        mAdapter.notifyItemInserted(position);
+    }
+
+    public void removeItem(int position){
+        mExampleList.remove(position);
+        mAdapter.notifyItemRemoved(position);
+    }
+
+
+    public void createExampleList() {
+        mExampleList = new ArrayList<>();
+        mExampleList.add(new ExampleItem(R.drawable.ic_android, "Line 1", "Line 2"));
+        mExampleList.add(new ExampleItem(R.drawable.ic_audiotrack, "Line 3", "Line 4"));
+        mExampleList.add(new ExampleItem(R.drawable.ic_wb_sunny, "Line 5", "Line 6"));
+
+    }
+
+    public void buildRecyclerView() {
 
         mRecyclerView = findViewById(R.id.recyclerview);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new ExampleAdapter(exampleList);
+        mAdapter = new ExampleAdapter(mExampleList);
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
-
     }
-}
+
+
+
+} //end of MainActivity

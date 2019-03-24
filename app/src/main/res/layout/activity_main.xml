@@ -12,6 +12,48 @@
         android:layout_height="match_parent"
         android:padding="4dp"
         android:scrollbars="vertical"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="100dp"/>
 
+    <EditText
+        android:id="@+id/editText_insert"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginBottom="33dp"
+        android:inputType="number"/>
+    <Button
+        android:id="@+id/button_insert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Insert"
+        android:layout_alignBottom="@+id/editText_insert"
+        android:layout_toEndOf="@+id/editText_insert"
+        android:layout_toRightOf="@+id/editText_insert" />
+
+    <EditText
+        android:id="@+id/editText_remove"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="214dp"
+        android:layout_marginLeft="214dp"
+        android:layout_marginBottom="33dp"
+        android:layout_toEndOf="@+id/button_insert"
+        android:layout_toRightOf="@+id/button_insert"
+        android:inputType="number"/>
+    <Button
+        android:id="@+id/button_remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remove"
+        android:layout_alignBottom="@+id/editText_remove"
+        android:layout_toEndOf="@+id/editText_remove"
+        android:layout_toRightOf="@+id/editText_remove" />
 </RelativeLayout>
